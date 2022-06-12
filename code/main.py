@@ -27,6 +27,15 @@ async def clientes():
         response = cursor.fetchall()
         return response
 
+@app.get("/clientes/{id_cliente}")
+async def clientes(id_cliente):
+    with sqlite3.connect('sql/clientes.sqlite') as connection:
+        connection.row_factory = sqlite3.Row
+        cursor=connection.cursor()
+        cursor.execute("SELECT * FROM clientes WHERE id_cliente={}".format(int(id_cliente)))
+        response=cursor.fetchall()
+        return response        
+
 
 
 
